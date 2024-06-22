@@ -8,7 +8,8 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { categories } from "@/lib/categories";
-import {} from "@radix-ui/react-dialog";
+import { hoverAnimation } from "@/lib/utils";
+import { Layers } from "lucide-react";
 import Link from "next/link";
 
 interface IAppLayout {
@@ -23,9 +24,14 @@ export default function AppLayout({ children }: IAppLayout) {
           asChild
           className="absolute right-4 top-4 rounded-full rou"
         >
-          <Button>Category</Button>
+          <Button
+            variant="outline"
+            className={`bg-transparent border-2 border-white w-16 h-16 ${hoverAnimation}`}
+          >
+            <Layers className="w-8 h-8" />
+          </Button>
         </DialogTrigger>
-        <DialogContent className="">
+        <DialogContent className="rounded-3xl">
           <DialogHeader>
             <DialogTitle>Choose a category</DialogTitle>
             <DialogDescription>

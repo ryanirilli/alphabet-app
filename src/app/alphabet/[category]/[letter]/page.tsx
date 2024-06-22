@@ -1,7 +1,6 @@
 import { TCategory, categories } from "@/lib/categories";
 import { redirect } from "next/navigation";
-import { AnimatedLetterContent } from "@/components/animated-letter-content";
-import WordImage from "@/components/word-image";
+import { Flashcard } from "@/components/flashcard";
 
 interface ILetter {
   params: {
@@ -42,13 +41,11 @@ export default function Letter({ params }: ILetter) {
   return (
     <div className="sm:flex items-center justify-center h-screen">
       <div className="flex flex-col sm:max-w-lg w-full h-full sm:h-auto">
-        <AnimatedLetterContent
+        <Flashcard
           letterData={letterData}
           nextLink={nextLink}
           prevLink={prevLink}
-        >
-          <WordImage word={letterData.word} />
-        </AnimatedLetterContent>
+        />
       </div>
     </div>
   );

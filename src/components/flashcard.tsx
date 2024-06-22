@@ -8,6 +8,7 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
+import WordImage from "./word-image";
 
 const bgColors = [
   "bg-orange-500",
@@ -21,19 +22,13 @@ const bgColors = [
   "bg-rose-500",
 ];
 
-interface IAnimatedLetterContent {
+interface IFlashcard {
   letterData: TLetterData;
   nextLink: string;
   prevLink: string;
-  children: React.ReactNode;
 }
 
-export const AnimatedLetterContent = ({
-  letterData,
-  nextLink,
-  prevLink,
-  children,
-}: IAnimatedLetterContent) => {
+export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
   const bgColor = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * bgColors.length);
     return bgColors[randomIndex];
@@ -58,7 +53,7 @@ export const AnimatedLetterContent = ({
             </span>
             <span className="overflow-hidden">
               <motion.h2
-                className="text-xl tracking-widest"
+                className="text-3xl tracking-widest"
                 initial={{ y: "-100%", opacity: 0 }}
                 animate={{ y: "0%", opacity: 1 }}
                 transition={{
@@ -70,17 +65,17 @@ export const AnimatedLetterContent = ({
                 {letterData.word.toUpperCase()}
               </motion.h2>
             </span>
-            {children}
+            <WordImage word={letterData.word} />
             <div className="flex justify-between w-full items-center">
               <Link href={prevLink}>
                 <Button variant="ghost">
-                  <ArrowLeft />
+                  <ArrowLeft className="w-8 h-8" />
                 </Button>
               </Link>
               <LetterAudio {...letterData} />
               <Link href={nextLink}>
                 <Button variant="ghost">
-                  <ArrowRight />
+                  <ArrowRight className="w-8 h-8" />
                 </Button>
               </Link>
             </div>

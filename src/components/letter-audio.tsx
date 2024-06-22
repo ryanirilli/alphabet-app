@@ -1,7 +1,7 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { hoverAnimation } from "@/lib/utils";
 import { useState, useEffect, useRef } from "react";
-import { CirclePlay } from "lucide-react";
+import { AudioLines } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface ILetterAudio {
@@ -44,15 +44,12 @@ export const LetterAudio = ({
   return (
     <>
       <Button
-        className={cn("hover:bg-transparent", className)}
+        variant="outline"
+        className={`rounded-full bg-transparent border-4 border-white w-20 h-20 ${hoverAnimation}`}
         disabled={!audioUrl}
-        variant="ghost"
-        size={null}
         onClick={handlePlay}
       >
-        <div>
-          <CirclePlay size={64} strokeWidth={1} className="cursor-pointer" />
-        </div>
+        <AudioLines strokeWidth={2} className="w-16 h-16" />
       </Button>
       {audioUrl && (
         <audio ref={audioRef} className="hidden" controls>
