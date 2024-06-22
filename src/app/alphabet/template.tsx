@@ -31,7 +31,7 @@ export default function AppLayout({ children }: IAppLayout) {
             <DialogDescription>
               <ul className="text-xl flex flex-col gap-4 mt-4">
                 {categories.map((category) => (
-                  <li>
+                  <li key={category.name}>
                     <Link
                       href={`/alphabet/${category.name}`}
                       key={category.name}
