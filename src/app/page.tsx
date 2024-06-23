@@ -9,8 +9,8 @@ export default function Home() {
             Have fun learning the ABCs!
           </h1>
           <h2 className="text-xl">
-            Boost your child's alphabet skills with colorful and interactive
-            flashcards.
+            Boost your child&apos;s alphabet skills with colorful and
+            interactive flashcards.
           </h2>
         </div>
       </section>

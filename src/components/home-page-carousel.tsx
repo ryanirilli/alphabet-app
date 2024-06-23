@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/carousel";
 import { categories } from "@/lib/categories";
 import Link from "next/link";
-import { hoverAnimation } from "@/lib/utils";
 
 export default function HomePageCarousel() {
   return (
@@ -44,8 +43,6 @@ export default function HomePageCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      {/* <CarouselPrevious />
-    <CarouselNext /> */}
     </Carousel>
   );
 }
