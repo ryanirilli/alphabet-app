@@ -1,6 +1,7 @@
 import { TCategory, categories } from "@/lib/categories";
 import { redirect } from "next/navigation";
 import { Flashcard } from "@/components/flashcard";
+import FullPageMobile from "@/components/full-page-mobile";
 
 interface ILetter {
   params: {
@@ -18,7 +19,11 @@ export default function Letter({ params }: ILetter) {
       letterData.letter.toLowerCase() === params.letter.toLowerCase()
   );
 
+  // Handle invalid letter and/or category
   if (!letterData) {
+    if (category.name) {
+      redirect(`/alphabet/${category.name}/a`);
+    }
     redirect(`/alphabet/animals/a`);
   }
 
@@ -41,6 +46,7 @@ export default function Letter({ params }: ILetter) {
   return (
     <div className="sm:flex items-center justify-center h-screen">
       <div className="flex flex-col sm:max-w-lg w-full h-full sm:h-auto">
+        <FullPageMobile />
         <Flashcard
           letterData={letterData}
           nextLink={nextLink}

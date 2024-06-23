@@ -13,6 +13,9 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        "homepage-hero": "url('/homepage-hero.png')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
