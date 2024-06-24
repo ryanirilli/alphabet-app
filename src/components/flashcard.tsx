@@ -65,7 +65,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
             <div className="grow py-4">
               <WordImage word={letterData.word} />
             </div>
-            <div className="flex justify-between w-full items-center pb-16 sm:pb-0">
+            <div className="flex justify-between w-full items-center pb-20 sm:pb-0">
               <Link href={prevLink}>
                 <Button variant="ghost">
                   <ArrowLeft className="w-8 h-8" />
