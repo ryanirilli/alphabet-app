@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import WordImage from "./word-image";
+import { revealAnimation } from "@/lib/utils";
 
 const bgColors = [
   "bg-orange-500",
@@ -42,12 +43,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
         <CardContent>
           <div className="flex flex-col items-center py-8">
             <span className="overflow-hidden">
-              <motion.h1
-                className="text-9xl font-bold"
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: "0%", opacity: 1 }}
-                transition={{ duration: 0.75, ease: [0.25, 0.1, 0, 1] }}
-              >
+              <motion.h1 className="text-9xl font-bold" {...revealAnimation}>
                 {letterData.letter}
               </motion.h1>
             </span>
