@@ -14,8 +14,8 @@ const shapes = [
   },
   {
     letter: "F",
-    word: "Flat",
-    fact: "Flat shapes are two-dimensional with only height and width!",
+    word: "Frame",
+    fact: "A frame is a shape that surrounds a picture or window!",
   },
   {
     letter: "G",
@@ -44,8 +44,8 @@ const shapes = [
   },
   {
     letter: "L",
-    word: "Line",
-    fact: "Lines can be straight or wavy and go on forever!",
+    word: "Loop the Loop",
+    fact: "A loop the loop is a fun shape that goes around and around like a roller coaster!",
   },
   {
     letter: "M",

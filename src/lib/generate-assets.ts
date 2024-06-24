@@ -7,11 +7,36 @@ import axios from "axios";
 
 config();
 
-const newCategories = ["cars"];
+const newCategories: string[] = [];
 
-const cats = newCategories.length
+type TRegenerateLetter = { categoryName: string; letters: string[] };
+const regenerateLetters: TRegenerateLetter[] = [
+  { categoryName: "shapes", letters: ["L"] },
+];
+
+const cats = regenerateLetters.length
+  ? categories.filter((cat) => {
+      const categoryToRegenrate = regenerateLetters.find(
+        (r) => r.categoryName === cat.name
+      );
+      console.log("categoryToRegenrate", categoryToRegenrate);
+      if (!categoryToRegenrate) {
+        return false;
+      }
+      if (categoryToRegenrate.letters.length) {
+        cat.data = cat.data.filter((letter) =>
+          categoryToRegenrate.letters.includes(letter.letter)
+        );
+        return true;
+      }
+      return false;
+    })
+  : newCategories.length
   ? categories.filter((cat) => newCategories.includes(cat.name))
   : categories;
+
+const shouldOverwriteImageIfExists = false;
+const shouldOverwriteAudioIfExists = false;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -21,19 +46,26 @@ const openai = new OpenAI({
   for (const category of cats) {
     for (const letterData of category.data) {
       console.log(`Generating assets for ${letterData.word}`);
-      await generateImage(category.name, letterData.word, false);
-      await generateAudio(letterData);
+      await generateImage(
+        category.name,
+        letterData.word,
+        shouldOverwriteImageIfExists
+      );
+      await generateAudio(letterData, shouldOverwriteAudioIfExists);
 
       console.log(`Assets generated for ${letterData.word}`);
     }
   }
 })();
 
-async function generateAudio({ letter, word, fact }: TLetterData) {
+async function generateAudio(
+  { letter, word, fact }: TLetterData,
+  overwriteIfExists = false
+) {
   const key = `${word}-audio`;
   try {
     const audioUrl: string | null = await kv.get(key);
-    if (audioUrl) {
+    if (audioUrl && !overwriteIfExists) {
       console.log(`Audio URL already exists in KV: ${audioUrl}`);
       return;
     }
@@ -77,7 +109,7 @@ async function generateImage(
     // Generate the image
     const response = await openai.images.generate({
       model: "dall-e-3",
-      prompt: `the category is ${category}, generate a cute crayon drawing of a ${word} using a white color on a black background.`,
+      prompt: `the category is ${category}, generate a cute crayon style drawing of a ${word} using a white color on a black background.`,
       n: 1,
       size: "1024x1024",
     });
