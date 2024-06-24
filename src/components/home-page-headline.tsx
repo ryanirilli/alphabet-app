@@ -7,14 +7,14 @@ export default function HomePageHeadline() {
   return (
     <>
       <motion.h1
-        className="text-3xl font-bold mb-2 xl:mb-8 xl:text-[64px]"
+        className="text-3xl font-bold mb-2 lg:text-[64px] lg:mb-6 xl:mb-8 xl:text-[48px]"
         {...revealAnimation}
       >
         Have fun learning the ABCs!
       </motion.h1>
       <motion.h2 className="text-xl" {...revealAnimation}>
         Boost your child&apos;s alphabet skills with colorful and interactive
-        flashcards.
+        flashcards
       </motion.h2>
     </>
   );

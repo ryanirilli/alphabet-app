@@ -41,10 +41,11 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
         className={`${bgColor} h-full sm:h-auto rounded-none sm:rounded-lg`}
       >
         <CardContent>
-          <div className="flex flex-col items-center py-8">
+          <div className="flex flex-col items-center py-8 h-screen sm:h-auto">
             <span className="overflow-hidden">
               <motion.h1 className="text-9xl font-bold" {...revealAnimation}>
-                {letterData.letter}
+                {letterData.letter.toUpperCase()}
+                {letterData.letter.toLowerCase()}
               </motion.h1>
             </span>
             <span className="overflow-hidden">
@@ -61,8 +62,10 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
                 {letterData.word.toUpperCase()}
               </motion.h2>
             </span>
-            <WordImage word={letterData.word} />
-            <div className="flex justify-between w-full items-center">
+            <div className="grow py-4">
+              <WordImage word={letterData.word} />
+            </div>
+            <div className="flex justify-between w-full items-center pb-16 sm:pb-0">
               <Link href={prevLink}>
                 <Button variant="ghost">
                   <ArrowLeft className="w-8 h-8" />
