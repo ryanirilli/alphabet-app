@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { config } from "dotenv";
 import { categories, TLetterData } from "./categories";
 import OpenAI from "openai";
@@ -11,7 +13,7 @@ const newCategories: string[] = [];
 
 type TRegenerateLetter = { categoryName: string; letters: string[] };
 const regenerateLetters: TRegenerateLetter[] = [
-  { categoryName: "shapes", letters: ["L"] },
+  { categoryName: "shapes", letters: ["P"] },
 ];
 
 const cats = regenerateLetters.length
@@ -35,7 +37,7 @@ const cats = regenerateLetters.length
   ? categories.filter((cat) => newCategories.includes(cat.name))
   : categories;
 
-const shouldOverwriteImageIfExists = false;
+const shouldOverwriteImageIfExists = true;
 const shouldOverwriteAudioIfExists = false;
 
 const openai = new OpenAI({
@@ -49,7 +51,8 @@ const openai = new OpenAI({
       await generateImage(
         category.name,
         letterData.word,
-        shouldOverwriteImageIfExists
+        shouldOverwriteImageIfExists,
+        "/Users/ryanirilli/Downloads/pentagon.jpg"
       );
       await generateAudio(letterData, shouldOverwriteAudioIfExists);
 
@@ -94,7 +97,8 @@ async function generateAudio(
 async function generateImage(
   category: string,
   word: string,
-  overwriteIfExists = false
+  overwriteIfExists = false,
+  imagePath?: string
 ) {
   try {
     const key = `${word}-image`;
@@ -106,27 +110,35 @@ async function generateImage(
       return;
     }
 
-    // Generate the image
-    const response = await openai.images.generate({
-      model: "dall-e-3",
-      prompt: `the category is ${category}, generate a cute crayon style drawing of a ${word} using a white color on a black background.`,
-      n: 1,
-      size: "1024x1024",
-    });
+    let imageBuffer: Buffer;
 
-    const imageUrl = response.data[0].url;
+    if (imagePath) {
+      imageBuffer = fs.readFileSync(path.resolve(imagePath));
+    } else {
+      // Generate the image
+      const response = await openai.images.generate({
+        model: "dall-e-3",
+        prompt: `the category is ${category}, generate a cute crayon style drawing of a ${word} using a white color on a black background.`,
+        n: 1,
+        size: "1024x1024",
+      });
 
-    if (!imageUrl) {
-      throw new Error("No image URL returned from OpenAI");
+      const imageUrl = response.data[0].url;
+
+      if (!imageUrl) {
+        throw new Error("No image URL returned from OpenAI");
+      }
+
+      // Download the image
+      const imageResponse = await axios.get(imageUrl, {
+        responseType: "arraybuffer",
+      });
+
+      imageBuffer = Buffer.from(imageResponse.data, "binary");
     }
 
-    // Download the image
-    const imageResponse = await axios.get(imageUrl, {
-      responseType: "arraybuffer",
-    });
-
     // Upload the image to Vercel Blob
-    const blobResponse = await put(key, imageResponse.data, {
+    const blobResponse = await put(key, imageBuffer, {
       access: "public",
       contentType: "image/png",
     });

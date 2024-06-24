@@ -89,8 +89,8 @@ const shapes = [
   },
   {
     letter: "Y",
-    word: "Y-shape",
-    fact: "Y-shapes look like the letter Y with a straight line and a fork at the top!",
+    word: "Yin-Yang",
+    fact: "The Yin-Yang is a circular symbol showing how opposite forces can be connected and balanced!",
   },
   {
     letter: "Z",
