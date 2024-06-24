@@ -7,15 +7,21 @@ import axios from "axios";
 
 config();
 
+const newCategories = ["cars"];
+
+const cats = newCategories.length
+  ? categories.filter((cat) => newCategories.includes(cat.name))
+  : categories;
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 (async function () {
-  for (const category of categories) {
+  for (const category of cats) {
     for (const letterData of category.data) {
       console.log(`Generating assets for ${letterData.word}`);
-      await generateImage(category.name.slice(0, -1), letterData.word, false);
+      await generateImage(category.name, letterData.word, false);
       await generateAudio(letterData);
 
       console.log(`Assets generated for ${letterData.word}`);
