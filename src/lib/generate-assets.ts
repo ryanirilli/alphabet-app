@@ -13,7 +13,10 @@ const newCategories: string[] = [];
 
 type TRegenerateLetter = { categoryName: string; letters: string[] };
 const regenerateLetters: TRegenerateLetter[] = [
-  { categoryName: "shapes", letters: ["P"] },
+  {
+    categoryName: "animals",
+    letters: [],
+  },
 ];
 
 const cats = regenerateLetters.length
@@ -51,8 +54,7 @@ const openai = new OpenAI({
       await generateImage(
         category.name,
         letterData.word,
-        shouldOverwriteImageIfExists,
-        "/Users/ryanirilli/Downloads/pentagon.jpg"
+        shouldOverwriteImageIfExists
       );
       await generateAudio(letterData, shouldOverwriteAudioIfExists);
 

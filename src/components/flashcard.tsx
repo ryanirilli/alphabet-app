@@ -4,23 +4,22 @@ import Link from "next/link";
 import { TLetterData } from "@/lib/categories";
 import { LetterAudio } from "./letter-audio";
 import { Card, CardContent } from "./ui/card";
-import { useMemo } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo } from "react";
+import { motion, useAnimation } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import WordImage from "./word-image";
-import { revealAnimation } from "@/lib/utils";
 
-const bgColors = [
-  "bg-orange-500",
-  "bg-lime-500",
-  "bg-emerald-500",
-  "bg-teal-500",
-  "bg-cyan-500",
-  "bg-blue-500",
-  "bg-violet-500",
-  "bg-fuchsia-500",
-  "bg-rose-500",
+const colors = [
+  { bgColor: "bg-orange-500", textColor: "text-orange-200" },
+  { bgColor: "bg-lime-500", textColor: "text-lime-200" },
+  { bgColor: "bg-emerald-500", textColor: "text-emerald-200" },
+  { bgColor: "bg-teal-500", textColor: "text-teal-200" },
+  { bgColor: "bg-cyan-500", textColor: "text-cyan-200" },
+  { bgColor: "bg-blue-500", textColor: "text-blue-200" },
+  { bgColor: "bg-violet-500", textColor: "text-violet-200" },
+  { bgColor: "bg-fuchsia-500", textColor: "text-fuchsia-200" },
+  { bgColor: "bg-rose-500", textColor: "text-rose-200" },
 ];
 
 interface IFlashcard {
@@ -30,20 +29,74 @@ interface IFlashcard {
 }
 
 export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
-  const bgColor = useMemo(() => {
-    const randomIndex = Math.floor(Math.random() * bgColors.length);
-    return bgColors[randomIndex];
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const sequence = async () => {
+      // Initial rise and slight rotation
+      const risePromise = controls.start({
+        y: "-20%",
+        rotate: -10,
+        opacity: 1,
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          duration: 1,
+          ease: "easeOut",
+        },
+      });
+
+      // Start the wiggle effect slightly after the rise begins
+      await new Promise((resolve) => setTimeout(resolve, 300));
+
+      // Wiggle effect
+      const wigglePromise = await controls.start({
+        rotate: [-10, 10, -10, 0],
+        transition: {
+          duration: 0.5,
+          yoyo: 3,
+          ease: "easeInOut",
+        },
+      });
+
+      // Wait for both animations to complete
+      await Promise.all([risePromise, wigglePromise]);
+
+      // Fall and bounce
+      await controls.start({
+        y: "0%",
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          duration: 0.5,
+          ease: "easeIn",
+        },
+      });
+    };
+
+    sequence();
+  }, [controls]);
+
+  const cardColor = useMemo(() => {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
   }, []);
 
   return (
     <section className="sm:p-4 w-full h-full sm:h-auto">
       <Card
-        className={`${bgColor} h-full sm:h-auto rounded-none sm:rounded-lg`}
+        className={`${cardColor.bgColor} ${cardColor.textColor} h-full sm:h-auto rounded-none sm:rounded-lg`}
       >
         <CardContent>
           <div className="flex flex-col items-center py-8 h-screen sm:h-[90vh]">
-            <span className="overflow-hidden">
-              <motion.h1 className="text-9xl font-bold" {...revealAnimation}>
+            <span>
+              <motion.h1
+                className="text-9xl font-bold"
+                initial={{ y: "100%", rotate: 10, opacity: 0 }}
+                animate={controls}
+              >
                 {letterData.letter.toUpperCase()}
                 {letterData.letter.toLowerCase()}
               </motion.h1>

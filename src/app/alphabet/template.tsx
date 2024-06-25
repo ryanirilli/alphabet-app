@@ -28,7 +28,7 @@ export default function AppLayout({ children }: IAppLayout) {
             <Layers className="w-8 h-8" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="rounded-3xl">
+        <DialogContent className="rounded-3xl bg-white">
           <DialogHeader>
             <DialogTitle>Choose a category</DialogTitle>
             <DialogDescription>
