@@ -40,16 +40,17 @@ export default function AppLayout({ children }: IAppLayout) {
                   const color = getColorByIndex(i);
                   return (
                     <li key={category.name}>
-                      <Link
-                        href={`/alphabet/${category.name}`}
-                        key={category.name}
+                      <Button
+                        asChild
+                        className={`w-full rounded-full capitalize text-white ${color.bgColor} ${color.bgHover} focus-visible:ring-blue-400 focus-visible:ring-offset-0`}
                       >
-                        <Button
-                          className={`w-full rounded-full capitalize text-white ${color.bgColor} ${color.bgHover}`}
+                        <Link
+                          href={`/alphabet/${category.name}`}
+                          key={category.name}
                         >
                           {category.name}
-                        </Button>
-                      </Link>
+                        </Link>
+                      </Button>
                     </li>
                   );
                 })}
