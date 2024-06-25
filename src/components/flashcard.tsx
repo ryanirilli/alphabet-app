@@ -9,18 +9,7 @@ import { motion, useAnimation } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import WordImage from "./word-image";
-
-const colors = [
-  { bgColor: "bg-orange-500", textColor: "text-orange-200" },
-  { bgColor: "bg-lime-500", textColor: "text-lime-200" },
-  { bgColor: "bg-emerald-500", textColor: "text-emerald-200" },
-  { bgColor: "bg-teal-500", textColor: "text-teal-200" },
-  { bgColor: "bg-cyan-500", textColor: "text-cyan-200" },
-  { bgColor: "bg-blue-500", textColor: "text-blue-200" },
-  { bgColor: "bg-violet-500", textColor: "text-violet-200" },
-  { bgColor: "bg-fuchsia-500", textColor: "text-fuchsia-200" },
-  { bgColor: "bg-rose-500", textColor: "text-rose-200" },
-];
+import { colors, getRandomColor } from "@/lib/utils";
 
 interface IFlashcard {
   letterData: TLetterData;
@@ -79,10 +68,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
     sequence();
   }, [controls]);
 
-  const cardColor = useMemo(() => {
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  }, []);
+  const cardColor = useMemo(getRandomColor, []);
 
   return (
     <section className="sm:p-4 w-full h-full sm:h-auto">

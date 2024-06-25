@@ -8,7 +8,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { categories } from "@/lib/categories";
-import { hoverAnimation } from "@/lib/utils";
+import { getColorByIndex, hoverAnimation } from "@/lib/utils";
 import { Layers } from "lucide-react";
 import Link from "next/link";
 
@@ -28,26 +28,31 @@ export default function AppLayout({ children }: IAppLayout) {
             <Layers className="w-8 h-8" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="rounded-3xl bg-white">
+        <DialogContent className="rounded-3xl bg-slate-100 text-slate-800">
           <DialogHeader>
-            <DialogTitle>Choose a category</DialogTitle>
+            <DialogTitle className="flex items-center">
+              <Layers className="w-8 h-8 mr-2" />
+              Choose a category
+            </DialogTitle>
             <DialogDescription>
               <ul className="text-xl flex flex-col gap-4 mt-4">
-                {categories.map((category) => (
-                  <li key={category.name}>
-                    <Link
-                      href={`/alphabet/${category.name}`}
-                      key={category.name}
-                    >
-                      <Button
-                        variant="outline"
-                        className="w-full rounded-full capitalize"
+                {categories.map((category, i) => {
+                  const color = getColorByIndex(i);
+                  return (
+                    <li key={category.name}>
+                      <Link
+                        href={`/alphabet/${category.name}`}
+                        key={category.name}
                       >
-                        {category.name}
-                      </Button>
-                    </Link>
-                  </li>
-                ))}
+                        <Button
+                          className={`w-full rounded-full capitalize text-white ${color.bgColor} ${color.bgHover}`}
+                        >
+                          {category.name}
+                        </Button>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </DialogDescription>
           </DialogHeader>
