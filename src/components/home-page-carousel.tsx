@@ -9,10 +9,20 @@ import {
 } from "@/components/ui/carousel";
 import { categories } from "@/lib/categories";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function HomePageCarousel() {
+  const [hasLoaded, setHasLoaded] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setHasLoaded(true);
+    }, 1000);
+  }, []);
   return (
     <Carousel
+      className={`w-full transition-opacity duration-700 opacity-0 ${
+        hasLoaded ? "opacity-100" : ""
+      }`}
       plugins={[
         Autoplay({
           delay: 2000,
@@ -22,7 +32,6 @@ export default function HomePageCarousel() {
         align: "start",
         loop: true,
       }}
-      className="w-full"
     >
       <CarouselContent>
         {categories.map((category, index) => (

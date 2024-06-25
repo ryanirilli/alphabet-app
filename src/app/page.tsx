@@ -13,6 +13,23 @@ export default function Home() {
       <section className="container pt-8 pb-32">
         <HomePageCarousel />
       </section>
+      <section className="py-16">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-2">AI Assisted Learning</h2>
+          <p className="max-w-prose text-lg">
+            These flashcards have been carefully crafted with the help of AI to
+            generate delightful drawings and audio to bring the ABCs to life.
+          </p>
+          <div className="flex justify-center">
+            <img
+              className="center w-full max-w-3xl"
+              alt="openai logo creating flashcards"
+              src="/ai-assist-graphic.svg"
+            />
+          </div>
+        </div>
+      </section>
+      <section className="min-h-80" />
     </main>
   );
 }
