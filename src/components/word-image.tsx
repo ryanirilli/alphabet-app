@@ -39,13 +39,11 @@ export default function WordImage({ word }: IWordImage) {
   }, [imageUrl]);
 
   return (
-    <div className="aspect-square w-full">
-      <img
-        className={`mix-blend-lighten transition-opacity duration-700 opacity-0 ${
-          isLoaded ? "opacity-100" : ""
-        }`}
-        src={imageUrl as string}
-      />
-    </div>
+    <img
+      className={`object-contain w-full max-h-full mix-blend-lighten transition-opacity duration-700 opacity-0 ${
+        isLoaded ? "opacity-100" : ""
+      }`}
+      src={imageUrl as string}
+    />
   );
 }

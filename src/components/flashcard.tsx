@@ -71,55 +71,55 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
   const cardColor = useMemo(getRandomColor, []);
 
   return (
-    <section className="sm:p-4 w-full h-full sm:h-auto">
-      <Card
-        className={`${cardColor.bgColor} ${cardColor.textColor} h-full sm:h-auto rounded-none sm:rounded-lg`}
-      >
-        <CardContent>
-          <div className="flex flex-col items-center py-8 h-screen sm:h-[90vh]">
-            <span>
-              <motion.h1
-                className="text-9xl font-bold"
-                initial={{ y: "100%", rotate: 10, opacity: 0 }}
-                animate={controls}
-              >
-                {letterData.letter.toUpperCase()}
-                {letterData.letter.toLowerCase()}
-              </motion.h1>
-            </span>
-            <span className="overflow-hidden">
-              <motion.h2
-                className="text-3xl tracking-widest"
-                initial={{ y: "-100%", opacity: 0 }}
-                animate={{ y: "0%", opacity: 1 }}
-                transition={{
-                  duration: 0.75,
-                  ease: [0.25, 0.1, 0, 1],
-                  delay: 0.15,
-                }}
-              >
-                {letterData.word.toUpperCase()}
-              </motion.h2>
-            </span>
-            <div className="grow py-4 overflow-hidde">
-              <WordImage word={letterData.word} />
-            </div>
-            <div className="flex justify-between w-full items-center pb-24 sm:pb-0">
-              <Link href={prevLink}>
-                <Button variant="ghost">
-                  <ArrowLeft className="w-8 h-8" />
-                </Button>
-              </Link>
-              <LetterAudio {...letterData} />
-              <Link href={nextLink}>
-                <Button variant="ghost">
-                  <ArrowRight className="w-8 h-8" />
-                </Button>
-              </Link>
-            </div>
+    <Card
+      className={`${cardColor.bgColor} ${cardColor.textColor} w-full h-full rounded-none sm:p-4 sm:h-auto sm:rounded-lg`}
+    >
+      <CardContent>
+        <div className="flex flex-col items-center py-8 h-screen sm:h-[80vh]">
+          <div>
+            <motion.h1
+              className="text-9xl font-bold leading-tight"
+              initial={{ y: "100%", rotate: 10, opacity: 0 }}
+              animate={controls}
+            >
+              {letterData.letter.toUpperCase()}
+              {letterData.letter.toLowerCase()}
+            </motion.h1>
           </div>
-        </CardContent>
-      </Card>
-    </section>
+          <div className="overflow-clip">
+            <motion.h2
+              className="text-3xl leading-normal tracking-widest"
+              initial={{ y: "-100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              transition={{
+                duration: 0.75,
+                ease: [0.25, 0.1, 0, 1],
+                delay: 0.15,
+              }}
+            >
+              {letterData.word.toUpperCase()}
+            </motion.h2>
+          </div>
+          <div className="grow py-4 overflow-hidden">
+            <WordImage word={letterData.word} />
+          </div>
+          <div className="flex justify-between w-full items-center pb-24 sm:pb-0">
+            <Button asChild variant="ghost" className="rounded-full">
+              <Link href={prevLink}>
+                <ArrowLeft className="w-8 h-8" />
+              </Link>
+            </Button>
+
+            <LetterAudio {...letterData} />
+
+            <Button asChild variant="ghost" className="rounded-full">
+              <Link href={nextLink}>
+                <ArrowRight className="w-8 h-8" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
