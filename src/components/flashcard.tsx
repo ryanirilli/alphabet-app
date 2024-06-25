@@ -4,12 +4,12 @@ import Link from "next/link";
 import { TLetterData } from "@/lib/categories";
 import { LetterAudio } from "./letter-audio";
 import { Card, CardContent } from "./ui/card";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import WordImage from "./word-image";
-import { colors, getRandomColor } from "@/lib/utils";
+import { getRandomColor } from "@/lib/utils";
 
 interface IFlashcard {
   letterData: TLetterData;
@@ -19,9 +19,11 @@ interface IFlashcard {
 
 export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
   const controls = useAnimation();
+  const isMountedRef = useRef(true);
 
   useEffect(() => {
     const sequence = async () => {
+      isMountedRef.current = true;
       // Initial rise and slight rotation
       const risePromise = controls.start({
         y: "-20%",
@@ -40,6 +42,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
       await new Promise((resolve) => setTimeout(resolve, 300));
 
       // Wiggle effect
+      if (!isMountedRef.current) return;
       const wigglePromise = await controls.start({
         rotate: [-10, 10, -10, 0],
         transition: {
@@ -53,6 +56,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
       await Promise.all([risePromise, wigglePromise]);
 
       // Fall and bounce
+      if (!isMountedRef.current) return;
       await controls.start({
         y: "0%",
         transition: {
@@ -66,6 +70,10 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
     };
 
     sequence();
+    return () => {
+      controls.stop();
+      isMountedRef.current = false;
+    };
   }, [controls]);
 
   const cardColor = useMemo(getRandomColor, []);
