@@ -33,7 +33,7 @@ export function SupportMe() {
             </Button>
             <p>
               <span className="hidden sm:inline">
-                I hope you're enjoying the app!
+                I hope you&apos;re enjoying the app!
               </span>
               <span className="sm:hidden">Thank you!</span>
             </p>
