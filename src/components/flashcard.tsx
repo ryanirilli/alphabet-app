@@ -25,7 +25,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
   const controls = useAnimation();
   const swipeThreshold = 100;
 
-  const handleDragEnd = (_, info: PanInfo) => {
+  const handleDragEnd = (_: any, info: PanInfo) => {
     const { offset } = info;
     if (Math.abs(offset.x) > swipeThreshold) {
       offset.x > 0 ? router.push(prevLink) : router.push(nextLink);
