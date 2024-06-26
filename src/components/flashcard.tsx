@@ -40,13 +40,20 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
   };
 
   useEffect(() => {
+    controls.start({
+      y: 0,
+      transition: { type: "spring", stiffness: 300 },
+    });
+  }, [controls]);
+
+  useEffect(() => {
     if (direction) {
       controls
         .start({
           x: direction === "left" ? -window.innerWidth : window.innerWidth,
           rotate: direction === "left" ? -15 : 15,
           opacity: 0,
-          transition: { duration: 0.5, ease: "easeInOut" },
+          transition: { duration: 0.3, ease: "easeInOut" },
         })
         .then(() => {
           if (direction === "left") {
@@ -60,6 +67,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
 
   return (
     <motion.div
+      initial={{ y: 20 }}
       drag="x"
       onDragEnd={handleDragEnd}
       dragConstraints={{ left: 0, right: 0 }}
