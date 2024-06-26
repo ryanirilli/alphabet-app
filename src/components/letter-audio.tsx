@@ -8,15 +8,9 @@ interface ILetterAudio {
   letter: string;
   word: string;
   fact: string;
-  className?: string;
 }
 
-export const LetterAudio = ({
-  letter,
-  word,
-  fact,
-  className,
-}: ILetterAudio) => {
+export const LetterAudio = ({ letter, word, fact }: ILetterAudio) => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 

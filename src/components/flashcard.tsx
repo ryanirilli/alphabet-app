@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { TLetterData } from "@/lib/categories";
@@ -20,19 +20,43 @@ interface IFlashcard {
 
 export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
   const router = useRouter();
+  const [direction, setDirection] = useState<"left" | "right" | null>(null);
   const cardColor = useMemo(getRandomColor, []);
 
   const controls = useAnimation();
-  const swipeThreshold = 100;
+  const swipeThreshold = 50;
 
   const handleDragEnd = (_: any, info: PanInfo) => {
     const { offset } = info;
     if (Math.abs(offset.x) > swipeThreshold) {
-      offset.x > 0 ? router.push(prevLink) : router.push(nextLink);
+      if (offset.x > 0) {
+        setDirection("right");
+      } else {
+        setDirection("left");
+      }
     } else {
       controls.start({ x: 0, transition: { type: "spring", stiffness: 300 } });
     }
   };
+
+  useEffect(() => {
+    if (direction) {
+      controls
+        .start({
+          x: direction === "left" ? -window.innerWidth : window.innerWidth,
+          rotate: direction === "left" ? -15 : 15,
+          opacity: 0,
+          transition: { duration: 0.5, ease: "easeInOut" },
+        })
+        .then(() => {
+          if (direction === "left") {
+            router.push(nextLink);
+          } else {
+            router.push(prevLink);
+          }
+        });
+    }
+  }, [direction, controls, nextLink, prevLink, router]);
 
   return (
     <motion.div
