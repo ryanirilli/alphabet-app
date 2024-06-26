@@ -12,6 +12,8 @@ import LetterAndWordAnimation from "./letter-and-word-animation";
 import { PanInfo, motion, useAnimation } from "framer-motion";
 import { useRouter } from "next/navigation";
 
+const swipeThreshold = 50;
+
 interface IFlashcard {
   letterData: TLetterData;
   nextLink: string;
@@ -22,9 +24,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
   const router = useRouter();
   const [direction, setDirection] = useState<"left" | "right" | null>(null);
   const cardColor = useMemo(getRandomColor, []);
-
   const controls = useAnimation();
-  const swipeThreshold = 50;
 
   const handleDragEnd = (_: any, info: PanInfo) => {
     const { offset } = info;
