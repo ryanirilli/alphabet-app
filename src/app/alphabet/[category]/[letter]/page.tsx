@@ -2,6 +2,7 @@ import { TCategory, categories } from "@/lib/categories";
 import { redirect } from "next/navigation";
 import { Flashcard } from "@/components/flashcard";
 import FullPageMobile from "@/components/full-page-mobile";
+import { motion } from "framer-motion";
 
 interface ILetter {
   params: {

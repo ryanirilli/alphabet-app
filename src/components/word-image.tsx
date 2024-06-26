@@ -40,6 +40,7 @@ export default function WordImage({ word }: IWordImage) {
 
   return (
     <img
+      draggable="false"
       className={`object-contain w-full max-h-full mix-blend-lighten transition-opacity duration-700 opacity-0 ${
         isLoaded ? "opacity-100" : ""
       }`}
