@@ -20,7 +20,7 @@ export default function AppLayout({ children }: IAppLayout) {
   return (
     <section>
       <Dialog>
-        <DialogTrigger asChild className="absolute right-4 top-4">
+        <DialogTrigger asChild className="absolute right-4 top-4 z-50">
           <Button
             variant="outline"
             className={`rounded-full bg-transparent border-2 border-white w-14 h-14 ${hoverAnimation}`}
