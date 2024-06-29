@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <GoogleTagManager gtmId="G-6BGBM7EXKC" />
+      <GoogleTagManager gtmId="GTM-TPKVMX3J" />
       <body className={`${inter.className} sm:overflow-auto`}>
         <ThemeProvider
           attribute="class"

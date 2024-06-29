@@ -1,6 +1,5 @@
 import HomePageCarousel from "@/components/home-page-carousel";
 import HomePageHeadline from "@/components/home-page-headline";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const logos = [
