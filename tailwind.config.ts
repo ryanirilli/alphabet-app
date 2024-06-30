@@ -14,7 +14,7 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        "homepage-hero": "url('/homepage-hero.png')",
+        "homepage-hero": "url('/homepage-hero.webp')",
       },
       colors: {
         border: "hsl(var(--border))",

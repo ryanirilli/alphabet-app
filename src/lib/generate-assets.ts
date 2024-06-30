@@ -9,13 +9,13 @@ import axios from "axios";
 
 config();
 
-const newCategories: string[] = [];
+const newCategories: string[] = ["dinosaurs"];
 
 type TRegenerateLetter = { categoryName: string; letters: string[] };
 const regenerateLetters: TRegenerateLetter[] = [
   {
-    categoryName: "animals",
-    letters: [],
+    categoryName: "dinosaurs",
+    letters: ["N", "P", "Y", "Z"],
   },
 ];
 
@@ -41,7 +41,7 @@ const cats = regenerateLetters.length
   : categories;
 
 const shouldOverwriteImageIfExists = true;
-const shouldOverwriteAudioIfExists = false;
+const shouldOverwriteAudioIfExists = true;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -54,6 +54,7 @@ const openai = new OpenAI({
       await generateImage(
         category.name,
         letterData.word,
+        letterData.fact,
         shouldOverwriteImageIfExists
       );
       await generateAudio(letterData, shouldOverwriteAudioIfExists);
@@ -99,6 +100,7 @@ async function generateAudio(
 async function generateImage(
   category: string,
   word: string,
+  fact: string,
   overwriteIfExists = false,
   imagePath?: string
 ) {
@@ -120,7 +122,7 @@ async function generateImage(
       // Generate the image
       const response = await openai.images.generate({
         model: "dall-e-3",
-        prompt: `the category is ${category}, generate a cute crayon style drawing of a ${word} using a white color on a black background.`,
+        prompt: `the category is ${category}, ${fact}. with this information, generate a cute crayon style drawing of a ${word} using only a white color on a black background.`,
         n: 1,
         size: "1024x1024",
       });
