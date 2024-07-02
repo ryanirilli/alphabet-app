@@ -116,8 +116,8 @@ const trains = [
   },
   {
     letter: "X",
-    word: "X-ing",
-    fact: "X-ing is a sign for train crossings where tracks meet roads!",
+    word: "X2000",
+    fact: "The X2000 is a high-speed train from Sweden known for its fast and smooth travel!",
   },
   {
     letter: "Y",
