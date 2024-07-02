@@ -63,9 +63,9 @@ export default function Home() {
                 Powered by a Dad and the Open Source Community
               </h2>
               <p className="max-w-prose text-lg">
-                AI is useless without the creative minds of individuals. This
-                app is free to use for everyone and I hope it helps your child
-                learn the ABCs in a fun and interactive way. Built with love by{" "}
+                This app is free to use for everyone and I hope it helps your
+                child learn the ABCs in a fun and interactive way. Built with
+                love by{" "}
                 <Link
                   className="underline"
                   href="https://buymeacoffee.com/ryanirilli"
