@@ -101,8 +101,8 @@ const trains = [
   },
   {
     letter: "U",
-    word: "Underground",
-    fact: "Underground trains travel below the city's surface!",
+    word: "Union Station",
+    fact: "Union Station is a common name for major train stations in big cities where many trains come together!",
   },
   {
     letter: "V",

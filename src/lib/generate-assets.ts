@@ -9,14 +9,14 @@ import axios from "axios";
 
 config();
 
-const newCategories: string[] = ["dinosaurs"];
+const newCategories: string[] = [];
 
 type TRegenerateLetter = { categoryName: string; letters: string[] };
 const regenerateLetters: TRegenerateLetter[] = [
-  {
-    categoryName: "dinosaurs",
-    letters: ["N", "P", "Y", "Z"],
-  },
+  // {
+  //   categoryName: "",
+  //   letters: [],
+  // },
 ];
 
 const cats = regenerateLetters.length
@@ -40,8 +40,8 @@ const cats = regenerateLetters.length
   ? categories.filter((cat) => newCategories.includes(cat.name))
   : categories;
 
-const shouldOverwriteImageIfExists = true;
-const shouldOverwriteAudioIfExists = true;
+const shouldOverwriteImageIfExists = false;
+const shouldOverwriteAudioIfExists = false;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
