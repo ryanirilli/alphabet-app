@@ -1,11 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useAudio } from "./audio-provider";
+import { hoverAnimation } from "@/lib/utils";
 
 interface IWordImage {
   word: string;
 }
 
 export default function WordImage({ word }: IWordImage) {
+  const { handlePlay } = useAudio();
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const hasFetchedRef = useRef(false);
@@ -40,8 +43,9 @@ export default function WordImage({ word }: IWordImage) {
 
   return (
     <img
+      onClick={handlePlay}
       draggable="false"
-      className={`object-contain w-full max-h-full mix-blend-lighten transition-opacity duration-700 opacity-0 ${
+      className={`${hoverAnimation} cursor-pointer object-contain w-full max-h-full mix-blend-lighten transition-opacity duration-700 opacity-0 ${
         isLoaded ? "opacity-100" : ""
       }`}
       src={imageUrl as string}

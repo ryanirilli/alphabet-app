@@ -1,8 +1,4 @@
 import { SupportMe } from "@/components/SupportMe";
-import { Button } from "@/components/ui/button";
-import { Heart, X } from "lucide-react";
-import Link from "next/link";
-
 interface ICategory {
   children: React.ReactNode;
 }

@@ -94,7 +94,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
                 </Link>
               </Button>
 
-              <LetterAudio {...letterData} />
+              <LetterAudio />
 
               <Button asChild variant="ghost" className="rounded-full">
                 <Link href={nextLink}>
