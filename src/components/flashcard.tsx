@@ -91,6 +91,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
               <Button asChild variant="ghost" className="rounded-full">
                 <Link href={prevLink}>
                   <ArrowLeft className="w-8 h-8" />
+                  <span className="sr-only">Navigate to the previous card</span>
                 </Link>
               </Button>
 
@@ -99,6 +100,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
               <Button asChild variant="ghost" className="rounded-full">
                 <Link href={nextLink}>
                   <ArrowRight className="w-8 h-8" />
+                  <span className="sr-only">Navigate to the next card</span>
                 </Link>
               </Button>
             </div>

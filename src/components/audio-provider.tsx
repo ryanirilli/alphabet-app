@@ -7,6 +7,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 interface IAudioContext {
   handlePlay: () => void;
   audioUrl: string | null;
+  isPlaying: boolean;
 }
 
 const AudioContext = createContext<IAudioContext | undefined>(undefined);
@@ -19,6 +20,7 @@ interface IAudioProvider {
 export const AudioProvider = ({ children, params }: IAudioProvider) => {
   const [_, letterData] = useLetterData(params.letter, params.category);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -42,14 +44,20 @@ export const AudioProvider = ({ children, params }: IAudioProvider) => {
   const handlePlay = () => {
     if (audioRef.current) {
       audioRef.current.play();
+      setIsPlaying(true);
     }
   };
 
   return (
-    <AudioContext.Provider value={{ handlePlay, audioUrl }}>
+    <AudioContext.Provider value={{ handlePlay, audioUrl, isPlaying }}>
       {children}
       {audioUrl && (
-        <audio ref={audioRef} className="hidden" controls>
+        <audio
+          ref={audioRef}
+          className="hidden"
+          controls
+          onEnded={() => setIsPlaying(false)}
+        >
           <source src={audioUrl} type="audio/mp3" />
         </audio>
       )}
