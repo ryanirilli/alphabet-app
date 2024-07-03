@@ -3,6 +3,7 @@ import cars from "./categories/cars";
 import dinosaurs from "./categories/dinosaurs";
 // import family from "./categories/family";
 import foods from "./categories/foods";
+import music from "./categories/music";
 // import people from "./categories/people";
 import plants from "./categories/plants";
 import shapes from "./categories/shapes";
@@ -29,4 +30,5 @@ export const categories: TCategory[] = [
   { name: "cars", data: cars },
   // { name: "people", data: people }, // very controversial AI content
   { name: "dinosaurs", data: dinosaurs },
+  { name: "music", data: music },
 ];

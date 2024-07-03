@@ -9,7 +9,7 @@ import axios from "axios";
 
 config();
 
-const newCategories: string[] = [];
+const newCategories: string[] = ["music"];
 
 type TRegenerateLetter = { categoryName: string; letters: string[] };
 const regenerateLetters: TRegenerateLetter[] = [
