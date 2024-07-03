@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const hoverAnimation =
-  "transition-transform scale-100 hover:scale-110 active:scale-95";
+  "transition-all scale-100 hover:scale-110 active:scale-95";
 
 export const revealAnimation = (options: Transition = {}) => {
   return {

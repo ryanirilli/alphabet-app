@@ -45,7 +45,7 @@ export default function WordImage({ word }: IWordImage) {
     <img
       onClick={handlePlay}
       draggable="false"
-      className={`${hoverAnimation} cursor-pointer object-contain w-full max-h-full mix-blend-lighten transition-opacity duration-700 opacity-0 ${
+      className={`cursor-pointer object-contain w-full max-h-full mix-blend-lighten opacity-0 duration-700 ${
         isLoaded ? "opacity-100" : ""
       }`}
       src={imageUrl as string}

@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <GoogleTagManager gtmId="GTM-TPKVMX3J" />
       <body className={`${inter.className} sm:overflow-auto`}>
         <ThemeProvider
