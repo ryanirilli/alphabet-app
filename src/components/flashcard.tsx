@@ -79,7 +79,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
         className={`${cardColor.bgColor} ${cardColor.textColor} w-full h-full rounded-none sm:p-4 sm:h-auto sm:rounded-lg`}
       >
         <CardContent>
-          <div className="flex flex-col items-center py-8 h-screen sm:h-[80vh]">
+          <div className="flex flex-col items-center justify-between h-dvh sm:h-[80vh]">
             <LetterAndWordAnimation
               letter={letterData.letter}
               word={letterData.word}
@@ -87,7 +87,7 @@ export const Flashcard = ({ letterData, nextLink, prevLink }: IFlashcard) => {
             <div className="grow py-4 overflow-hidden">
               <WordImage word={letterData.word} />
             </div>
-            <div className="flex justify-between w-full items-center pb-24 sm:pb-0">
+            <div className="flex justify-between w-full items-center pb-4 md:pb-0">
               <Button asChild variant="ghost" className="rounded-full">
                 <Link href={prevLink}>
                   <ArrowLeft className="w-8 h-8" />
