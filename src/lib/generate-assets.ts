@@ -9,7 +9,7 @@ import axios from "axios";
 
 config();
 
-const newCategories: string[] = ["music"];
+const newCategories: string[] = [];
 
 type TRegenerateLetter = { categoryName: string; letters: string[] };
 const regenerateLetters: TRegenerateLetter[] = [
@@ -40,8 +40,8 @@ const cats = regenerateLetters.length
   ? categories.filter((cat) => newCategories.includes(cat.name))
   : categories;
 
-const shouldOverwriteImageIfExists = false;
-const shouldOverwriteAudioIfExists = false;
+const shouldOverwriteImageIfExists = true;
+const shouldOverwriteAudioIfExists = true;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -77,7 +77,7 @@ async function generateAudio(
     }
 
     const response = await openai.audio.speech.create({
-      model: "tts-1",
+      model: "tts-1-hd",
       voice: "nova",
       input: `${letter} is for ${word}! ${fact}`,
     });
@@ -121,8 +121,8 @@ async function generateImage(
     } else {
       // Generate the image
       const response = await openai.images.generate({
-        model: "dall-e-3",
-        prompt: `the category is ${category}, ${fact}. with this information, generate a cute crayon style drawing of a ${word} using only a white color on a black background.`,
+        model: "gpt-image-1",
+        prompt: `the category is ${category}, and the fact is "${fact}." with this information, generate a cute crayon style drawing of a ${word} using only a white color on a black background.`,
         n: 1,
         size: "1024x1024",
       });

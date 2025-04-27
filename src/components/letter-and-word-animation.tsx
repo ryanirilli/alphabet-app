@@ -80,10 +80,10 @@ export default function LetterAndWordAnimation({
           {letter.toLowerCase()}
         </motion.h1>
       </div>
-      <div className="overflow-clip">
+      <div>
         <motion.h2
           className="text-3xl leading-normal tracking-widest"
-          initial={{ y: "-100%", opacity: 0 }}
+          initial={{ y: "100%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
           transition={{
             duration: 0.75,
