@@ -88,7 +88,7 @@ export default function WordImage({ word }: IWordImage) {
       role="button"
       aria-pressed="false"
       draggable="false"
-      className={`cursor-pointer object-contain w-full max-h-full mix-blend-lighten opacity-0 duration-700 ${
+      className={`cursor-pointer object-contain w-full max-h-full mix-blend-screen rounded-lg opacity-0 duration-700 ${
         isLoaded ? "opacity-100" : ""
       }`}
       src={imageUrl as string}
