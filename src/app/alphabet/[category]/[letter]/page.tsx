@@ -40,6 +40,7 @@ export default function Letter({ params }: { params: ILetter }) {
           letterData={letterData}
           nextLink={nextLink}
           prevLink={prevLink}
+          category={params.category}
         />
       </div>
     </div>
