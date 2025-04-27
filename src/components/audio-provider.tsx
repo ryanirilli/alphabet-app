@@ -41,6 +41,12 @@ export const AudioProvider = ({ children, params }: IAudioProvider) => {
       });
   }, [letterData]);
 
+  useEffect(() => {
+    if (audioRef.current && audioUrl) {
+      audioRef.current.load();
+    }
+  }, [audioUrl]);
+
   const handlePlay = () => {
     if (audioRef.current) {
       audioRef.current.play();
@@ -54,11 +60,12 @@ export const AudioProvider = ({ children, params }: IAudioProvider) => {
       {audioUrl && (
         <audio
           ref={audioRef}
-          className="hidden"
+          className="sr-only"
           controls
+          preload="auto"
           onEnded={() => setIsPlaying(false)}
         >
-          <source src={audioUrl} type="audio/mp3" />
+          <source src={audioUrl} type="audio/mpeg" />
         </audio>
       )}
     </AudioContext.Provider>

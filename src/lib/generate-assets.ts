@@ -41,7 +41,7 @@ const cats = regenerateLetters.length
   : categories;
 
 const shouldOverwriteImageIfExists = true;
-const shouldOverwriteAudioIfExists = true;
+const shouldOverwriteAudioIfExists = false;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -122,23 +122,18 @@ async function generateImage(
       // Generate the image
       const response = await openai.images.generate({
         model: "gpt-image-1",
-        prompt: `the category is ${category}, and the fact is "${fact}." with this information, generate a cute crayon style drawing of a ${word} using only a white color on a black background.`,
+        prompt: `the category is ${category}, ${fact}. Generate a cute crayon style drawing of a ${word} using only a white color on a black background. DO not use any text in the image.`,
         n: 1,
         size: "1024x1024",
       });
 
-      const imageUrl = response.data[0].url;
+      const imageData = response.data?.[0]?.b64_json;
 
-      if (!imageUrl) {
+      if (!imageData) {
         throw new Error("No image URL returned from OpenAI");
       }
 
-      // Download the image
-      const imageResponse = await axios.get(imageUrl, {
-        responseType: "arraybuffer",
-      });
-
-      imageBuffer = Buffer.from(imageResponse.data, "binary");
+      imageBuffer = Buffer.from(imageData, "base64");
     }
 
     // Upload the image to Vercel Blob
