@@ -40,8 +40,8 @@ const cats = regenerateLetters.length
   ? categories.filter((cat) => newCategories.includes(cat.name))
   : categories;
 
-const shouldOverwriteImageIfExists = true;
-const shouldOverwriteAudioIfExists = false;
+const shouldOverwriteImageIfExists = false;
+const shouldOverwriteAudioIfExists = true;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -78,8 +78,13 @@ async function generateAudio(
 
     const response = await openai.audio.speech.create({
       model: "tts-1-hd",
-      voice: "nova",
-      input: `${letter} is for ${word}! ${fact}`,
+      voice: "shimmer",
+      input: `"${letter}" is for ${word}! ${fact}`,
+      instructions: `Affect: An excited, upbeat and curious narrator, guiding a magical, child-friendly adventure.
+
+Tone: Magical, warm, and inviting, creating a sense of wonder and excitement for young listeners.
+
+Pacing: Rhythmic, with slight pauses to emphasize magical moments and maintain the storytelling flow.`,
     });
 
     const audioBuffer = Buffer.from(await response.arrayBuffer());

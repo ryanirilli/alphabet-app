@@ -4,10 +4,5 @@ interface ICategory {
 }
 
 export default function Category({ children }: ICategory) {
-  return (
-    <>
-      <SupportMe />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
